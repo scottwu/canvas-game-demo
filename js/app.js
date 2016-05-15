@@ -59,7 +59,7 @@ var enemyFactory = function enemyFactory(config) {
 };
 
 assets.then(images => {
-  game.addObject(Player, {
+  var player = game.addObject(Player, {
     canvas: gameCanvas,
     image: images[0],
     x: 100,
@@ -75,7 +75,8 @@ assets.then(images => {
       image: images[1],
       width: 100,
       height: 100,
-      speed: 2
+      speed: 2,
+      player: player
     });
   }, 1000);
 

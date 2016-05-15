@@ -6,7 +6,9 @@ var Game = {
   },
 
   addObject: function(object, config) {
-    this.objects.push(Object.create(object).init(config));
+    var newObj = Object.create(object).init(config);
+    this.objects.push(newObj);
+    return newObj;
   },
 
   start: function start() {
@@ -17,7 +19,11 @@ var Game = {
   loop: function loop() {
     this.update();
     this.render();
-    window.requestAnimationFrame(loop.bind(this));
+    if (!this.states.hit) {
+      window.requestAnimationFrame(loop.bind(this));
+    } else {
+      clearInterval(this.states.enemyInterval);
+    }
   },
 
   update: function update() {

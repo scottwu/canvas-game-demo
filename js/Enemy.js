@@ -9,10 +9,11 @@ var Enemy = {
     this.dx = config.dx * config.speed;
     this.dy = config.dy * config.speed;
     this.active = true;
+    this.player = config.player;
     return this;
   },
 
-  update: function update() {
+  update: function update(states) {
     this.x += this.dx;
     this.y += this.dy;
     if (this.x < -this.width ||
@@ -21,6 +22,13 @@ var Enemy = {
         this.y > +this.canvas.height + this.height) {
       this.active = false;
     }
+    if (this.collides(this, this.player)) {
+      states.hit = true;
+    }
+  },
+
+  collides: function(a, b) {
+    return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
   },
 
   render: function render() {
