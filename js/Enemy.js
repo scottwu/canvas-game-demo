@@ -23,7 +23,7 @@ var Enemy = {
       this.active = false;
     }
     if (this.collides(this, this.player)) {
-      this.player.hit = true;
+      this.player.hit = states.hit = true;
     }
   },
 

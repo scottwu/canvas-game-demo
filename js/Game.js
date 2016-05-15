@@ -25,6 +25,9 @@ var Game = {
     } else {
       clearInterval(this.states.enemyInterval);
     }
+    if (this.states.hit) {
+      this.removeKeyboardListeners();
+    }
   },
 
   update: function update() {
@@ -38,7 +41,7 @@ var Game = {
   },
 
   addKeyboardListeners: function addKeyboardListeners() {
-    this.keyboardListener = function keyboardListener(pressed, evt) {
+    var keyboardListener = (pressed, evt) => {
       switch (evt.keyCode) {
         case 37: // left
           this.states.left = pressed;
@@ -54,12 +57,15 @@ var Game = {
           break;
       }
     };
-    document.addEventListener('keydown', this.keyboardListener.bind(this, true));
-    document.addEventListener('keyup', this.keyboardListener.bind(this, false));
+    this.listeners.keydownListener = keyboardListener.bind(this, true);
+    this.listeners.keyupListener = keyboardListener.bind(this, false);
+    document.addEventListener('keydown', this.listeners.keydownListener);
+    document.addEventListener('keyup', this.listeners.keyupListener);
   },
 
   removeKeyboardListeners: function removeKeyboardListeners() {
-    document.removeEventListener('keydown', this.keyboardListener.bind(this, true));
-    document.removeEventListener('keyup', this.keyboardListener.bind(this, false));
+    this.states.left = this.states.up = this.states.right = this.states.down = false;
+    document.removeEventListener('keydown', this.listeners.keydownListener);
+    document.removeEventListener('keyup', this.listeners.keyupListener);
   }
 };
