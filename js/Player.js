@@ -8,6 +8,11 @@ var Player = {
     this.height = config.height;
   },
 
+  update: function update() {
+    this.x += 1;
+    this.y += 1;
+  },
+
   render: function render() {
     this.canvas.getContext('2d')
       .drawImage(this.image, this.x, this.y, this.width, this.height);

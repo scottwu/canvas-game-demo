@@ -12,7 +12,7 @@ var gameCanvas = Object.create(Canvas).init({
 }, document.body);
 
 var assets = Object.create(Asset).init([
-  { src: 'assets/spaceship.pn' },
+  { src: 'assets/spaceship.png' },
   { src: 'assets/astroid.png' }
 ]);
 
@@ -26,7 +26,10 @@ assets.then(images => {
     width: 80,
     height: 100
   });
-  player.render();
+
+  var game = Object.create(Game);
+  game.init(player);
+  game.start();
 }).catch(err => {
   console.log(err);
 });
