@@ -28,7 +28,8 @@ assets.then(images => {
   });
 
   var game = Object.create(Game);
-  game.init(player);
+  game.init(gameCanvas);
+  game.addObject(player);
   game.start();
 }).catch(err => {
   console.log(err);

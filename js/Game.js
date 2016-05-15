@@ -1,6 +1,11 @@
 var Game = {
-  init: function(object) {
-    this.object = object;
+  init: function(canvas) {
+    this.canvas = canvas;
+    this.objects = [];
+  },
+
+  addObject: function(object) {
+    this.objects.push(object);
   },
 
   start: function start() {
@@ -14,10 +19,11 @@ var Game = {
   },
 
   update: function update() {
-    this.object.update();
+    this.objects.forEach(object => object.update());
   },
 
   render: function render() {
-    this.object.render();
+    this.canvas.getContext('2d').clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.objects.forEach(object => object.render());
   }
 };
