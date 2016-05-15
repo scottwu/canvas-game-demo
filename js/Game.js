@@ -21,6 +21,7 @@ var Game = {
   },
 
   update: function update() {
+    this.objects = this.objects.filter(object => object.active);
     this.objects.forEach(object => object.update(this.states));
   },
 

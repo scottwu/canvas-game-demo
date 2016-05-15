@@ -8,12 +8,19 @@ var Enemy = {
     this.height = config.height;
     this.dx = config.dx * config.speed;
     this.dy = config.dy * config.speed;
+    this.active = true;
     return this;
   },
 
   update: function update() {
     this.x += this.dx;
     this.y += this.dy;
+    if (this.x < -this.width ||
+        this.x > +this.canvas.width + this.width ||
+        this.y < -this.height ||
+        this.y > +this.canvas.height + this.height) {
+      this.active = false;
+    }
   },
 
   render: function render() {

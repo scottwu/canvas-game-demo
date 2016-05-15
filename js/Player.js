@@ -7,6 +7,7 @@ var Player = {
     this.width = config.width;
     this.height = config.height;
     this.speed = config.speed;
+    this.active = true;
     return this;
   },
 
