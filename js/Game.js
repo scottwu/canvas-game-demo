@@ -19,7 +19,7 @@ var Game = {
   loop: function loop() {
     this.update();
     this.render();
-    if (!this.states.hit) {
+    if (!this.states.end) {
       window.requestAnimationFrame(loop.bind(this));
     } else {
       clearInterval(this.states.enemyInterval);

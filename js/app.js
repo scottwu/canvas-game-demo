@@ -13,6 +13,7 @@ var gameCanvas = Object.create(Canvas).init({
 
 var assets = Object.create(Asset).init([
   { src: 'assets/spaceship.png' },
+  { src: 'assets/explosion.png' },
   { src: 'assets/astroid.png' }
 ]);
 
@@ -62,6 +63,7 @@ assets.then(images => {
   var player = game.addObject(Player, {
     canvas: gameCanvas,
     image: images[0],
+    sprite: images[1],
     x: 100,
     y: 100,
     width: 80,
@@ -72,7 +74,7 @@ assets.then(images => {
   game.states.enemyInterval = setInterval(() => {
     enemyFactory({
       canvas: gameCanvas,
-      image: images[1],
+      image: images[2],
       width: 100,
       height: 100,
       speed: 2,
