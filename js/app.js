@@ -19,6 +19,45 @@ var assets = Object.create(Asset).init([
 var game = Object.create(Game);
 game.init(gameCanvas);
 
+var enemyFactory = function enemyFactory(config) {
+  var params = {}
+  var random = Math.random() * (1 - 0.5) + 0.5;
+  var direction = Math.floor(Math.random() * 4);
+  var sideway = Math.random() * (0.5 - -0.5) + -0.5;
+
+  params.width = config.width * random;
+  params.height = config.height * random;
+
+  switch (direction) {
+    case 0:
+      params.x = config.canvas.width + params.width;
+      params.dx = -config.speed / random;
+      params.y = config.canvas.height / 2 - params.height / 2;
+      params.dy = sideway * config.speed;
+      break;
+    case 1:
+      params.x = config.canvas.width / 2 - params.width / 2;
+      params.dx = sideway * config.speed;
+      params.y = config.canvas.height + params.height;
+      params.dy = -config.speed / random;
+      break;
+    case 2:
+      params.x = -params.width;
+      params.dx = +config.speed / random;
+      params.y = config.canvas.height / 2 - params.height / 2;
+      params.dy = sideway * config.speed;
+      break;
+    case 3:
+      params.x = config.canvas.width / 2 - params.width / 2;
+      params.dx = sideway * config.speed;
+      params.y = -params.height;
+      params.dy = +config.speed / random;
+      break;
+  };
+
+  game.addObject(Enemy, Object.assign(config, params));
+};
+
 assets.then(images => {
   game.addObject(Player, {
     canvas: gameCanvas,
@@ -30,17 +69,15 @@ assets.then(images => {
     speed: 5
   });
 
-  game.addObject(Enemy, {
-    canvas: gameCanvas,
-    image: images[1],
-    x: -50,
-    y: 300,
-    width: 50,
-    height: 50,
-    speed: 3,
-    dx: 1,
-    dy: -0.5
-  });
+  game.states.enemyInterval = setInterval(() => {
+    enemyFactory({
+      canvas: gameCanvas,
+      image: images[1],
+      width: 100,
+      height: 100,
+      speed: 2
+    });
+  }, 1000);
 
   game.start();
 }).catch(err => {
