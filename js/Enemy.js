@@ -8,6 +8,7 @@ var Enemy = {
     this.height = config.height;
     this.dx = config.dx * config.speed;
     this.dy = config.dy * config.speed;
+    return this;
   },
 
   update: function update() {

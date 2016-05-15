@@ -6,9 +6,7 @@ var Game = {
   },
 
   addObject: function(object, config) {
-    var newObj = Object.create(object);
-    newObj.init(config);
-    this.objects.push(newObj);
+    this.objects.push(Object.create(object).init(config));
   },
 
   start: function start() {
