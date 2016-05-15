@@ -5,8 +5,10 @@ var Game = {
     this.states = {};
   },
 
-  addObject: function(object) {
-    this.objects.push(object);
+  addObject: function(object, config) {
+    var newObj = Object.create(object);
+    newObj.init(config);
+    this.objects.push(newObj);
   },
 
   start: function start() {

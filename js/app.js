@@ -20,8 +20,7 @@ var game = Object.create(Game);
 game.init(gameCanvas);
 
 assets.then(images => {
-  var player = Object.create(Player);
-  player.init({
+  game.addObject(Player, {
     canvas: gameCanvas,
     image: images[0],
     x: 100,
@@ -31,10 +30,7 @@ assets.then(images => {
     speed: 5
   });
 
-  game.addObject(player);
-
-  var enemy = Object.create(Enemy);
-  enemy.init({
+  game.addObject(Enemy, {
     canvas: gameCanvas,
     image: images[1],
     x: -50,
@@ -45,7 +41,6 @@ assets.then(images => {
     dx: 1,
     dy: -0.5
   });
-  game.addObject(enemy);
 
   game.start();
 }).catch(err => {
