@@ -12,13 +12,21 @@ var gameCanvas = Object.create(Canvas).init({
 }, document.body);
 
 var assets = Object.create(Asset).init([
-  { src: 'assets/spaceship.png' },
+  { src: 'assets/spaceship.pn' },
   { src: 'assets/astroid.png' }
 ]);
 
 assets.then(images => {
-  var spaceship = images[0];
-  var astroid = images[1];
-  gameCanvas.getContext('2d').drawImage(spaceship, 0, 0);
-  gameCanvas.getContext('2d').drawImage(astroid, 300, 0);
+  var player = Object.create(Player);
+  player.init({
+    canvas: gameCanvas,
+    image: images[0],
+    x: 100,
+    y: 100,
+    width: 80,
+    height: 100
+  });
+  player.render();
+}).catch(err => {
+  console.log(err);
 });
