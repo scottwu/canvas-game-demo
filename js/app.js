@@ -32,6 +32,21 @@ assets.then(images => {
   });
 
   game.addObject(player);
+
+  var enemy = Object.create(Enemy);
+  enemy.init({
+    canvas: gameCanvas,
+    image: images[1],
+    x: -50,
+    y: 300,
+    width: 50,
+    height: 50,
+    speed: 3,
+    dx: 1,
+    dy: -0.5
+  });
+  game.addObject(enemy);
+
   game.start();
 }).catch(err => {
   console.log(err);
