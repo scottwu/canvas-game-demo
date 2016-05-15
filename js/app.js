@@ -16,6 +16,9 @@ var assets = Object.create(Asset).init([
   { src: 'assets/astroid.png' }
 ]);
 
+var game = Object.create(Game);
+game.init(gameCanvas);
+
 assets.then(images => {
   var player = Object.create(Player);
   player.init({
@@ -24,11 +27,10 @@ assets.then(images => {
     x: 100,
     y: 100,
     width: 80,
-    height: 100
+    height: 100,
+    speed: 5
   });
 
-  var game = Object.create(Game);
-  game.init(gameCanvas);
   game.addObject(player);
   game.start();
 }).catch(err => {

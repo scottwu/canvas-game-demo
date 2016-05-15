@@ -6,11 +6,14 @@ var Player = {
     this.y = config.y;
     this.width = config.width;
     this.height = config.height;
+    this.speed = config.speed;
   },
 
-  update: function update() {
-    this.x += 1;
-    this.y += 1;
+  update: function update(states) {
+    if (states.left && this.x > 0) this.x -= this.speed;
+    if (states.up && this.y > 0) this.y -= this.speed;
+    if (states.right && this.x < +this.canvas.width - this.width) this.x += this.speed;
+    if (states.down && this.y < +this.canvas.height - this.height) this.y += this.speed;
   },
 
   render: function render() {
