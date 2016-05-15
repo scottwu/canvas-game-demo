@@ -15,4 +15,6 @@ var playerAsset = Object.create(Asset).load({
   src: 'assets/spaceship.png'
 });
 
-gameCanvas.getContext('2d').drawImage(playerAsset, 0, 0);
+playerAsset.then(function(image) {
+  gameCanvas.getContext('2d').drawImage(image, 0, 0);
+});
