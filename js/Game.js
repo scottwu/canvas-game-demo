@@ -3,6 +3,7 @@ var Game = {
     this.canvas = canvas;
     this.objects = [];
     this.states = {};
+    this.listeners = {};
   },
 
   addObject: function(object, config) {
@@ -37,37 +38,28 @@ var Game = {
   },
 
   addKeyboardListeners: function addKeyboardListeners() {
-    document.addEventListener('keydown', evt => {
+    this.keyboardListener = function keyboardListener(pressed, evt) {
       switch (evt.keyCode) {
         case 37: // left
-          this.states.left = true;
+          this.states.left = pressed;
           break;
         case 38: // up
-          this.states.up = true;
+          this.states.up = pressed;
           break;
         case 39: // right
-          this.states.right = true;
+          this.states.right = pressed;
           break;
         case 40: // down
-          this.states.down = true;
+          this.states.down = pressed;
           break;
       }
-    });
-    document.addEventListener('keyup', evt => {
-      switch (evt.keyCode) {
-        case 37: // left
-          this.states.left = false;
-          break;
-        case 38: // up
-          this.states.up = false;
-          break;
-        case 39: // right
-          this.states.right = false;
-          break;
-        case 40: // down
-          this.states.down = false;
-          break;
-      }
-    });
+    };
+    document.addEventListener('keydown', this.keyboardListener.bind(this, true));
+    document.addEventListener('keyup', this.keyboardListener.bind(this, false));
+  },
+
+  removeKeyboardListeners: function removeKeyboardListeners() {
+    document.removeEventListener('keydown', this.keyboardListener.bind(this, true));
+    document.removeEventListener('keyup', this.keyboardListener.bind(this, false));
   }
 };
